@@ -17,4 +17,6 @@ public class LoanHist {
     private double fine;
     private String remarks;
 
+    public LoanHist() {
+    }
 }

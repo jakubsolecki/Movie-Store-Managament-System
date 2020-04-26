@@ -14,4 +14,7 @@ public class Loan {
     private Date outDate;
     @Temporal(TemporalType.DATE)
     private Date dueDate;
+
+    public Loan() {
+    }
 }

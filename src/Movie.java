@@ -17,6 +17,9 @@ public class Movie {
     private String description;
     private int unitsInStock;
     private double pricePerUnit;
-    private Set<Loan> loans;
-    private Set<LoanHist> loansHist;
+//    private Set<Loan> loans;
+//    private Set<LoanHist> loansHist;
+
+    public Movie() {
+    }
 }
