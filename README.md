@@ -1,1 +1,1 @@
-# Movie-Store-Managament-System
+# Movie-Store-Managament-systemo
