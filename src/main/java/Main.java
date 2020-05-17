@@ -1,3 +1,4 @@
+import model.Client;
 import org.hibernate.*;
 import org.hibernate.query.Query;
 import org.hibernate.cfg.Configuration;
