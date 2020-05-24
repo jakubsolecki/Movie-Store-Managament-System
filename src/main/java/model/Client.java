@@ -12,7 +12,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 @Getter
 @Setter
-@Table(name = "Clients")
+//@Table(name = "Clients")
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,6 +25,16 @@ public class Client {
     @NonNull
     @NotNull
     private String lastName;
+
+    @NonNull
+    @NotNull
+    private String phone;
+
+    @NonNull
+    @NotNull
+    private String email;
+
+    // TODO: move address to an embedded class
 
     @NonNull
     @NotNull
@@ -42,12 +52,13 @@ public class Client {
     @NotNull
     private String zip;
 
+
     private String remarks;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private Set<Loan> loans = new HashSet<>();
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private Set<LoanHist> loansHist = new HashSet<>();
 
     public Client(String firstName, String lastName) {

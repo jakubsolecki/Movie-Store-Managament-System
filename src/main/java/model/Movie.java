@@ -39,4 +39,10 @@ public class Movie {
     @NonNull
     @NotNull
     private double pricePerUnit;
+
+    public void takeUnitFromStock() throws Exception{
+        if (this.unitsInStock == 0)
+            throw new Exception("Not units int stock");
+        this.unitsInStock--;
+    }
 }
