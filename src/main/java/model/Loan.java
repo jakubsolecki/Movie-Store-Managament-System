@@ -1,17 +1,16 @@
 package model;
 
 import com.sun.istack.NotNull;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@RequiredArgsConstructor
 @Table(name = "Loans")
 public class Loan {
     @Id
@@ -19,25 +18,22 @@ public class Loan {
     private int loanID;
 
     @ManyToOne
+    @NonNull
     @NotNull
     private Client client;
 
     @ManyToOne
+    @NonNull
     @NotNull
     private Movie movie;
 
-    @Temporal(TemporalType.DATE)
+    @Basic
+    @NonNull
     @NotNull
-    private Date outDate;
+    private LocalDate outDate;
 
-    @Temporal(TemporalType.DATE)
+    @Basic
+    @NonNull
     @NotNull
-    private Date dueDate;
-
-    public Loan(Client client, Movie movie, Date outDate, Date dueDate) {
-        this.client = client;
-        this.movie = movie;
-        this.outDate = outDate;
-        this.dueDate = dueDate;
-    }
+    private LocalDate dueDate;
 }

@@ -24,10 +24,10 @@ public class Main {
     }
 
     public static void main(final String[] args) throws Exception {
-        Client client = new Client("Judasz");
+//        Client client = new Client("Zbigniew", "Stonoga");
         final Session session = getSession();
         Transaction tx = session.beginTransaction();
-        session.save(client);
+//        session.save(client);
         tx.commit();
         try {
             System.out.println("querying all the managed entities...");

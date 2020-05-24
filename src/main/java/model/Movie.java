@@ -1,9 +1,7 @@
 package model;
 
 import com.sun.istack.NotNull;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -11,36 +9,34 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Setter
+@RequiredArgsConstructor
 @Table(name = "Movies")
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int movieID;
 
+    @NonNull
     @NotNull
     private String title;
 
+    @NonNull
     @NotNull
     private String director;
 
+    @NonNull
     @NotNull
     private String script;
 
+    @NonNull
     @NotNull
     private String description;
 
+    @NonNull
     @NotNull
     private int unitsInStock;
 
+    @NonNull
     @NotNull
     private double pricePerUnit;
-
-    public Movie(String title, String director, String script, String description, int unitsInStock, double pricePerUnit) {
-        this.title = title;
-        this.director = director;
-        this.script = script;
-        this.description = description;
-        this.unitsInStock = unitsInStock;
-        this.pricePerUnit = pricePerUnit;
-    }
 }

@@ -1,9 +1,7 @@
 package model;
 
 import com.sun.istack.NotNull;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,36 +10,32 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
+@RequiredArgsConstructor
 public class LoanHist {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int loanHistID;
 
     @ManyToOne
+    @NonNull
     @NotNull
     private Client client;
 
     @ManyToOne
+    @NonNull
     @NotNull
     private Movie movie;
 
     @Temporal(TemporalType.DATE)
+    @NonNull
     @NotNull
     private Date dueDate;
 
     @Temporal(TemporalType.DATE)
+    @NonNull
     @NotNull
     private Date inDate;
 
-    private double fine;
+    private double fine = 0;
     private String remarks;
-
-    public LoanHist(Client client, Movie movie, Date dueDate, Date inDate, double fine, String remarks) {
-        this.client = client;
-        this.movie = movie;
-        this.dueDate = dueDate;
-        this.inDate = inDate;
-        this.fine = fine;
-        this.remarks = remarks;
-    }
 }
