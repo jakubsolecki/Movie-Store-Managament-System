@@ -186,6 +186,7 @@ public class DbMediator {
         }
     }
 
+    // throws exception when loan with given ID does not exist
     public void returnMovie (int loanID, String remarks, double fine) throws Exception {
         Session session = SessionFactoryDecorator.openSession();
         Transaction transaction = session.beginTransaction();
