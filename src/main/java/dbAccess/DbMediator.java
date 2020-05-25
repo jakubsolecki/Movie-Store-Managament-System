@@ -2,6 +2,7 @@ package dbAccess;
 
 import model.Client;
 import model.Loan;
+import model.LoanHist;
 import model.Movie;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -118,19 +119,22 @@ public class DbMediator {
         predicates[1] = cb.like(root.get("director"), director);
         predicates[2] = cb.like(root.get("script"), script);
         cr.select(root).where(predicates);
-        Movie movieLookup = session.createQuery(cr).getSingleResult();
 
-        if (movieLookup == null) {
+        Movie movieLookup = null;
+        try {
+            movieLookup = session.createQuery(cr).getSingleResult();
+        }
+        catch (NoResultException e) {
             Movie movie = new Movie(title, director, script, description, unitsInStock, pricePerUnit);
             session.save(movie);
             transaction.commit();
             session.close();
+            return;
         }
-        else {
-            transaction.rollback();
-            session.close();
-            throw new Exception("Movie already exists");
-        }
+
+        transaction.rollback();
+        session.close();
+        throw new Exception("Movie already exists");
     }
 
     // throws an exception indicating that client or movie does not exist
@@ -154,8 +158,8 @@ public class DbMediator {
         }
 
         CriteriaQuery<Movie> cr2 = cb.createQuery(Movie.class);
-        Root<Movie> root2 = cr.from(Movie.class);
-        cr2.select(root2).where(cb.equal(root.get("movieID"), movieID));
+        Root<Movie> root2 = cr2.from(Movie.class);
+        cr2.select(root2).where(cb.equal(root2.get("movieID"), movieID));
 
         try {
             Movie movie = session.createQuery(cr2).getSingleResult();
@@ -180,21 +184,49 @@ public class DbMediator {
         }
     }
 
-    // TODO: implement in two versions: 1) extract loan from client loans 2) find loan if id was given
-    public void returnMovie (int clientID, int movieID, int loanID) {
+    // TODO: implement in second version: extract loan from client's loans
+    public void returnMovie (int loanID, String remarks, double fine) throws Exception {
         Session session = SessionFactoryDecorator.openSession();
         Transaction transaction = session.beginTransaction();
 
-//        Query findLoan = session.createQuery("select L from Loan L where " +
-//                "L.client = :client and " +
-//                "L.movie = :movie")
-//                .setParameter("client", client)
-//                .setParameter("movie", movie);
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<Loan> cr = cb.createQuery(Loan.class);
         Root<Loan> root = cr.from(Loan.class);
+        cr.select(root).where(cb.equal(root.get("loanID"), loanID));
 
-//        Loan loan =
+        Loan loan = null;
+        try {
+            loan = session.createQuery(cr).getSingleResult();
+        }
+        catch (NoResultException e) {
+            transaction.rollback();
+            session.close();
+            throw new Exception("Loan does not exist");
+        }
+
+        Client client = loan.getClient();
+        Movie movie = loan.getMovie();
+
+        LoanHist loanHist = new LoanHist(
+                client,
+                loan.getMovie(),
+                loan.getDueDate(),
+                java.time.LocalDate.now()
+        );
+
+        if (remarks != null)
+            loanHist.setRemarks(remarks);
+
+        if (fine != 0)
+            loanHist.setFine(fine);
+
+        movie.returnUnitToStock();
+        client.removeLoan(loan);
+        client.addLoanHist(loanHist);
+        session.update(client);
+        session.remove(loan);
+        session.save(loanHist);
+
         transaction.commit();
         session.close();
     }

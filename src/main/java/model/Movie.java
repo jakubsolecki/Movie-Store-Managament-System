@@ -10,7 +10,6 @@ import javax.persistence.*;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@Table(name = "Movies")
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,7 +41,11 @@ public class Movie {
 
     public void takeUnitFromStock() throws Exception{
         if (this.unitsInStock == 0)
-            throw new Exception("Not units int stock");
+            throw new Exception("Not enough units int stock");
         this.unitsInStock--;
+    }
+
+    public void returnUnitToStock() {
+        this.unitsInStock++;
     }
 }

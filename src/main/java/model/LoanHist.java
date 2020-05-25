@@ -4,6 +4,7 @@ import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -26,16 +27,16 @@ public class LoanHist {
     @NotNull
     private Movie movie;
 
-    @Temporal(TemporalType.DATE)
     @NonNull
     @NotNull
-    private Date dueDate;
+    private LocalDate dueDate;
 
-    @Temporal(TemporalType.DATE)
     @NonNull
     @NotNull
-    private Date inDate;
+    private LocalDate inDate;
 
     private double fine = 0;
     private String remarks;
+
+
 }

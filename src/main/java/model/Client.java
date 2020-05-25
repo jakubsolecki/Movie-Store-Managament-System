@@ -12,7 +12,6 @@ import java.util.Set;
 @RequiredArgsConstructor
 @Getter
 @Setter
-//@Table(name = "Clients")
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -72,5 +71,9 @@ public class Client {
 
     public void addLoanHist(LoanHist loanHist) {
         this.loansHist.add(loanHist);
+    }
+
+    public void removeLoan(Loan loan) {
+        this.loans.remove(loan);
     }
 }
