@@ -37,7 +37,7 @@ public class DbMediator {
     }
 
     // throws an exception if client with same name, phone and email already exists
-    public void addClient(String firstName,
+    public int addClient(String firstName,
                           String lastName,
                           String phone,
                           String email,
@@ -69,7 +69,7 @@ public class DbMediator {
             session.save(client);
             transaction.commit();
             session.close();
-            return;
+            return client.getClientID();
         }
 
         transaction.rollback();
@@ -102,7 +102,7 @@ public class DbMediator {
     }
 
     // throws an exception if there already exists movie with same title, director and script
-    public void addMovie (String title,
+    public int addMovie (String title,
                           String director,
                           String script,
                           String description,
@@ -129,7 +129,7 @@ public class DbMediator {
             session.save(movie);
             transaction.commit();
             session.close();
-            return;
+            return movie.getMovieID();
         }
 
         transaction.rollback();
@@ -138,7 +138,7 @@ public class DbMediator {
     }
 
     // throws an exception indicating that client or movie does not exist
-    public void loanMovie(int clientID, int movieID) throws Exception {
+    public int loanMovie(int clientID, int movieID) throws Exception {
         Session session = SessionFactoryDecorator.openSession();
         Transaction transaction = session.beginTransaction();
 
@@ -171,6 +171,8 @@ public class DbMediator {
             session.update(client);
             transaction.commit();
             session.close();
+
+            return loan.getLoanID();
         }
         catch (NoResultException e) {
             transaction.rollback();
@@ -184,7 +186,6 @@ public class DbMediator {
         }
     }
 
-    // TODO: implement in second version: extract loan from client's loans
     public void returnMovie (int loanID, String remarks, double fine) throws Exception {
         Session session = SessionFactoryDecorator.openSession();
         Transaction transaction = session.beginTransaction();
@@ -267,9 +268,9 @@ public class DbMediator {
         Root<Client> root = cr.from(Client.class);
         cr.select(root);
 
-        List<Client> clientLookup = null;
+        List<Client> allClients = null;
         try{
-            clientLookup = session.createQuery(cr).getResultList();
+            allClients = session.createQuery(cr).getResultList();
             transaction.commit();
         }
         catch (NoResultException e) {
@@ -279,6 +280,31 @@ public class DbMediator {
             session.close();
         }
 
-        return clientLookup;
+        return allClients;
+    }
+
+    // returns list of all movies or null if there aren't any
+    public List<Movie> getAllMovies() throws Exception {
+        Session session = SessionFactoryDecorator.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Movie> cr = cb.createQuery(Movie.class);
+        Root<Movie> root = cr.from(Movie.class);
+        cr.select(root);
+
+        List<Movie> allMovies = null;
+        try{
+            allMovies = session.createQuery(cr).getResultList();
+            transaction.commit();
+        }
+        catch (NoResultException e) {
+            transaction.rollback();
+        }
+        finally {
+            session.close();
+        }
+
+        return allMovies;
     }
 }

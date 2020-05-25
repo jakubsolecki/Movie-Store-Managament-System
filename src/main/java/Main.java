@@ -46,6 +46,8 @@ public class Main {
 
 //            dbm.loanMovie(1, 4);
 //            dbm.returnMovie(5, null, 0);
+            System.out.println(dbm.getAllClients());
+            System.out.println(dbm.getAllMovies());
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
