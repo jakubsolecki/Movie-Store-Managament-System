@@ -6,7 +6,9 @@
 
 # Movie Store Management System
 
-Software for managing video rental. Miniproject for databases course.
+Miniproject for databases course.
+Software for managing video rental. Allows owner to manage clients, their current loans and avaliable movies. Client can rent a video (if avaliable). Client's current loans are stored in Loan table. After returning the video, record from Loan is moved to LoanHist.
+
 
 ## Contributors:
 <table>
