@@ -1,9 +1,6 @@
 package dbAccess;
 
-import model.Client;
-import model.Loan;
-import model.LoanHist;
-import model.Movie;
+import model.*;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
@@ -48,7 +45,8 @@ public class DbMediator {
         if (!this.emailPattern.matcher(email).matches())
             throw new Exception("Incorrect email address");
 
-        Client client = new Client(firstName, lastName, phone, email, country, city, street, zip);
+        Address address = new Address(country, city, street, zip);
+        Client client = new Client(firstName, lastName, phone, email, address);
         Session session = SessionFactoryDecorator.openSession();
         Transaction transaction = session.beginTransaction();
 

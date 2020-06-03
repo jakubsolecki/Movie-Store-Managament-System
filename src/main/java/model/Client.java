@@ -33,23 +33,10 @@ public class Client {
     @NotNull
     private String email;
 
-    // TODO: move address to an embedded class
-
     @NonNull
     @NotNull
-    private String country;
-
-    @NonNull
-    @NotNull
-    private String city;
-
-    @NonNull
-    @NotNull
-    private String street;
-
-    @NonNull
-    @NotNull
-    private String zip;
+    @Embedded
+    private Address address;
 
 
     private String remarks;
