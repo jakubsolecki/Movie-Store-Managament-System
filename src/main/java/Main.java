@@ -1,10 +1,4 @@
-import dbAccess.DbMediator;
-import model.Client;
-import org.hibernate.*;
-import org.hibernate.query.Query;
-import org.hibernate.cfg.Configuration;
-
-import javax.persistence.metamodel.EntityType;
+import visualization.GUI;
 
 public class Main {
 //    private static final SessionFactory ourSessionFactory;
@@ -26,28 +20,30 @@ public class Main {
 //
     public static void main(final String[] args) throws Exception {
         try {
-            DbMediator dbm = DbMediator.getInstance();
-//            dbm.addClient("Zbigniew0",
-//                    "Stonoga",
-//                    "678945123",
-//                    "zbys@o2.com",
-//                    "Poland",
-//                    "Kraków",
-//                    "Dietla 25A/6",
-//                    "39-390");
-//            dbm.addMovie(
-//                    "Batman",
-//                    "Someone",
-//                    "Someone else",
-//                    "Bat-man",
-//                    1,
-//                    12.5
-//            );
+            //DbMediator dbm = DbMediator.getInstance();
 
-//            dbm.loanMovie(1, 4);
-//            dbm.returnMovie(5, null, 0);
+            GUI.main(null);
+            /*dbm.addClient("Zbigniew0",
+                    "Stonoga",
+                    "678945123",
+                    "zbys@o2.com",
+                    "Poland",
+                    "Kraków",
+                    "Dietla 25A/6",
+                    "39-390");
+            dbm.addMovie(
+                    "Batman",
+                    "Someone",
+                    "Someone else",
+                    "Bat-man",
+                    1,
+                    12.5
+            );
+
+            dbm.loanMovie(1, 4);
+            dbm.returnMovie(5, null, 0);
             System.out.println(dbm.getAllClients());
-            System.out.println(dbm.getAllMovies());
+            System.out.println(dbm.getAllMovies());*/
         }
         catch (Exception e) {
             System.out.println(e.getMessage());

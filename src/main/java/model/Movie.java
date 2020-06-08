@@ -41,7 +41,7 @@ public class Movie {
 
     public void takeUnitFromStock() throws Exception{
         if (this.unitsInStock == 0)
-            throw new Exception("Not enough units int stock");
+            throw new Exception("Not enough units in stock");
         this.unitsInStock--;
     }
 
