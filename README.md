@@ -5,24 +5,20 @@
 
 
 # Movie Store Management System
-
 Miniprojekt na kurs Bazy Danych. 
 Aplikacja desktopowa wspomagająca zarządzanie wypożyczalnią filmów, przeznaczona dla pracownika.  
 
 ### Opis funkcjonalności
-
 Aplikacja umożliwia prowadznie ewidencji oraz zarządzniae bazą danych, zawierającą dane zarejestrowanych klientów, filmów dostępnych w ofercie, aktualnych wypożyczeń oraz historii wypożyczeń filmów przez poszczególnych kilentów.
 
 ### Schemat
-
+![alt text](https://github.com/jakubsolecki/Movie-Store-Managament-System/blob/master/scheme.png)
 
 
 ### Interfejs dostępu do bazy
-
 Został zdefiniowany w klasie DbMediator, realizującej wzorzec singleton. Zawiera ona metody pozwalające prowadzić interakcje z bazą danych.
 
 ### Operacje na bazie
-
 Możliwe jest dodanie nowego klienta, dodanie filmu, wypożycznie filmu przez klienta oraz zwrot filmu przez klienta. Operacje są realizowane za pomocą __Criteria API__ - zapewnia to abstrakcję od użytej bazy danych oraz pozwala zrelizować zapytania w bardziej "obiektowym stylu". Każda z metod rzuca błąd w przypadku wystąpienia określonych zdarzeń: próba dodania klienta o takich samych danych co zarejestrowany,, podanie ID wypożyczenia, które nie istnieje, etc.
 
 #### Dodanie klienta
