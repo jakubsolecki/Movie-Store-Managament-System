@@ -6,8 +6,39 @@
 
 # Movie Store Management System
 
-Miniproject for databases course.
-Software for managing video rental. Allows owner to manage clients, their current loans and avaliable movies. Client can rent a video (if avaliable). Client's current loans are stored in Loan table. After returning the video, record from Loan is moved to LoanHist.
+Miniprojekt na kurs Bazy Danych. 
+Aplikacja desktopowa wspomagająca zarządzanie wypożyczalnią filmów, przeznaczona dla pracownika.  
+
+### Opis funkcjonalności
+
+Aplikacja umożliwia prowadznie ewidencji oraz zarządzniae bazą danych, zawierającą dane zarejestrowanych klientów, filmów dostępnych w ofercie, aktualnych wypożyczeń oraz historii wypożyczeń filmów przez poszczególnych kilentów.
+
+### Schemat
+
+
+
+### Interfejs dostępu do bazy
+
+Został zdefiniowany w klasie DbMediator, realizującej wzorzec singleton. Zawiera ona metody pozwalające prowadzić interakcje z bazą danych.
+
+### Operacje na bazie
+
+Możliwe jest dodanie nowego klienta, dodanie filmu, wypożycznie filmu przez klienta oraz zwrot filmu przez klienta. Operacje są realizowane za pomocą __Criteria API__ - zapewnia to abstrakcję od użytej bazy danych oraz pozwala zrelizować zapytania w bardziej "obiektowym stylu". Każda z metod rzuca błąd w przypadku wystąpienia określonych zdarzeń: próba dodania klienta o takich samych danych co zarejestrowany,, podanie ID wypożyczenia, które nie istnieje, etc.
+
+#### Dodanie klienta
+Realizowane za pomocą metody ```addClient(...)```. Wymagane jest podanie wszystkich danych klienta z ewentualnym pominięciem uwag (które moga zostać dodanie później przy pomocy ```addCLientRemarks(...)```).
+
+#### Dodanie filmu
+Realizowane metodą ```addMovie(...)```. Należy podać wszystkie dane filmu wyspecyfikowane w schemacie.
+
+#### Wypożycznienie filmu
+Realizowane metodą ```loanMovie(...)```. Wymaga podania ID klienta oraz ID filmu. Wypożyczenie filmu tworzy nowy rekord w tabeli Loans - łączy on klienta z filmem oraz zawiera dane o transkacji.
+
+#### Zwrot filmu
+```returnMovie(...)```. Wymaga podania ID wypożycznia. W wyniku tej operacji rekord z Loan odpowiadający wypożyczniu jest "przesuwany" do tabeli LoanHist.
+
+
+DbMediator zawiera dodatkowo metody ```getClient(...), getAllCLients(...)``` oraz ```getAllMovies(...)```.
 
 
 ## Contributors:
