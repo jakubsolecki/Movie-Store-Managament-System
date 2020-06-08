@@ -18,10 +18,7 @@ public class DbMediator {
     private final Pattern emailPattern;
 
     private DbMediator() {
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
-                "[a-zA-Z0-9_+&*-]+)*@" +
-                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
-                "A-Z]{2,7}$";
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         this.emailPattern = Pattern.compile(emailRegex);
         Configuration configuration = new Configuration();
         configuration.configure();

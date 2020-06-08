@@ -16,5 +16,6 @@
         <mapping class="model.Movie"/>
         <mapping class="model.Loan"/>
         <mapping class="model.LoanHist"/>
+        <mapping class="model.Address"/>
     </session-factory>
 </hibernate-configuration>

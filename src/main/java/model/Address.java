@@ -5,16 +5,12 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Entity
 @Embeddable
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Getter
 @Setter
 public class Address {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
 
     @NonNull
     @NotNull
