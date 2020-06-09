@@ -16,6 +16,17 @@ Aplikacja umożliwia prowadzenie ewidencji oraz zarządzanie bazą danych, zawie
 ### Schemat
 ![alt text](https://github.com/jakubsolecki/Movie-Store-Managament-System/blob/master/scheme.png)
 
+### Struktura projektu
+Klasy znajdują się w katalogu __src/main/java__
+
+#### Model
+Klasy będące encjami mapowanymi do bazdy danych najdują się w katalogu [model](https://github.com/jakubsolecki/Movie-Store-Managament-System/tree/master/src/main/java/model).
+
+#### Dostęp do bazy
+Cały interfejs zdefiniowany jest w katalogu [dbAccess](https://github.com/jakubsolecki/Movie-Store-Managament-System/tree/master/src/main/java/dbAccess) w klasie [DbMediator](https://github.com/jakubsolecki/Movie-Store-Managament-System/blob/master/src/main/java/dbAccess/DbMediator.java).
+
+#### GUI
+Wizualizacja zawarta jest w katalogu [visualization](https://github.com/jakubsolecki/Movie-Store-Managament-System/tree/master/src/main/java/visualization).
 
 ### Interfejs dostępu do bazy
 Został zdefiniowany w klasie [DbMediator](https://github.com/jakubsolecki/Movie-Store-Managament-System/blob/master/src/main/java/dbAccess/DbMediator.java), realizującej wzorzec singleton. Zawiera ona metody pozwalające prowadzić interakcje z bazą danych.
@@ -37,18 +48,6 @@ Realizowane metodą [```loanMovie(...)```](https://github.com/jakubsolecki/Movie
 
 
 DbMediator zawiera dodatkowo metody [```getClient(...)```](https://github.com/jakubsolecki/Movie-Store-Managament-System/blob/666ea7287ff6349cba6384b3bfeecab109a3dfc0/src/main/java/dbAccess/DbMediator.java#L271), [```getAllCLients(...)```](https://github.com/jakubsolecki/Movie-Store-Managament-System/blob/666ea7287ff6349cba6384b3bfeecab109a3dfc0/src/main/java/dbAccess/DbMediator.java#L297), [```getLoan(...)```](https://github.com/jakubsolecki/Movie-Store-Managament-System/blob/666ea7287ff6349cba6384b3bfeecab109a3dfc0/src/main/java/dbAccess/DbMediator.java#L238) oraz [```getAllMovies(...)```](https://github.com/jakubsolecki/Movie-Store-Managament-System/blob/666ea7287ff6349cba6384b3bfeecab109a3dfc0/src/main/java/dbAccess/DbMediator.java#L349), [```getAllClientsByTheirName(...)```](https://github.com/jakubsolecki/Movie-Store-Managament-System/blob/666ea7287ff6349cba6384b3bfeecab109a3dfc0/src/main/java/dbAccess/DbMediator.java#L321), [```getMovieByTitle(...)```](https://github.com/jakubsolecki/Movie-Store-Managament-System/blob/666ea7287ff6349cba6384b3bfeecab109a3dfc0/src/main/java/dbAccess/DbMediator.java#L373).
-
-### Struktura projektu
-Klasy znajdują się w katalogu __src/main/java__
-
-#### Model
-Klasy będące encjami mapowanymi do bazdy danych najdują się w katalogu [model](https://github.com/jakubsolecki/Movie-Store-Managament-System/tree/master/src/main/java/model).
-
-#### Dostęp do bazy
-Cały interfejs zdefiniowany jest w katalogu [dbAccess](https://github.com/jakubsolecki/Movie-Store-Managament-System/tree/master/src/main/java/dbAccess) w klasie [DbMediator](https://github.com/jakubsolecki/Movie-Store-Managament-System/blob/master/src/main/java/dbAccess/DbMediator.java).
-
-#### GUI
-Wizualizacja zawarta jest w katalogu [visualization](https://github.com/jakubsolecki/Movie-Store-Managament-System/tree/master/src/main/java/visualization).
 
 ## Contributors:
 <table>
