@@ -1,39 +1,9 @@
 
 import visualization.GUI;
-import dbAccess.DbMediator;
-import model.Client;
-import org.hibernate.*;
-import org.hibernate.query.Query;
-import org.hibernate.cfg.Configuration;
-
-import javax.persistence.metamodel.EntityType;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
-import java.lang.reflect.InvocationTargetException;
 
 
 public class Main{
-//    private static final SessionFactory ourSessionFactory;
-//
-//    static {
-//        try {
-//            Configuration configuration = new Configuration();
-//            configuration.configure();
-//
-//            ourSessionFactory = configuration.buildSessionFactory();
-//        } catch (Throwable ex) {
-//            throw new ExceptionInInitializerError(ex);
-//        }
-//    }
-//
-//    public static Session getSession() throws HibernateException {
-//        return ourSessionFactory.openSession();
-//    }
-//
+
     public static void main(final String[] args) throws Exception {
         try {
             GUI.main(null);
@@ -41,37 +11,5 @@ public class Main{
         catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
-
-
-////        Client client = new Client("Zbigniew", "Stonoga");
-//        final Session session = getSession();
-//        Transaction tx = session.beginTransaction();
-////        session.save(client);
-//        tx.commit();
-//        try {
-//            System.out.println("querying all the managed entities...");
-//            final Metamodel metamodel = session.getSessionFactory().getMetamodel();
-//            for (EntityType<?> entityType : metamodel.getEntities()) {
-//                final String entityName = entityType.getName();
-//                final Query query = session.createQuery("from " + entityName);
-//                System.out.println("executing: " + query.getQueryString());
-//                for (Object o : query.list()) {
-//                    System.out.println("  " + o);
-//                }
-//            }
-//        } finally {
-//            session.close();
-//        }
-//        DbMediator dbm = DbMediator.getInstance();
-//        dbm.addClient("Zbigniew0",
-//                    "Stonoga",
-//                    "678945123",
-//                    "zbys@o2.com",
-//                    "Poland",
-//                    "Kraków",
-//                    "Dietla 25A/6",
-//                    "39-390");
-//
     }
 }
