@@ -11,7 +11,7 @@ Miniprojekt na kurs Bazy Danych.
 Aplikacja desktopowa wspomagająca zarządzanie wypożyczalnią filmów, przeznaczona dla pracownika.  
 
 ### Opis funkcjonalności
-Aplikacja umożliwia prowadznie ewidencji oraz zarządzniae bazą danych, zawierającą dane zarejestrowanych klientów, filmów dostępnych w ofercie, aktualnych wypożyczeń oraz historii wypożyczeń filmów przez poszczególnych kilentów.
+Aplikacja umożliwia prowadzenie ewidencji oraz zarządzanie bazą danych, zawierającą dane zarejestrowanych klientów, filmów dostępnych w ofercie, aktualnych wypożyczeń oraz historii wypożyczeń filmów przez poszczególnych kilentów.
 
 ### Schemat
 ![alt text](https://github.com/jakubsolecki/Movie-Store-Managament-System/blob/master/scheme.png)
