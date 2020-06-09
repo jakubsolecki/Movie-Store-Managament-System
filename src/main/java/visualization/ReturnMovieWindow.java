@@ -9,9 +9,9 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Client;
-import model.Movie;
+import model.Loan;
 
-public class LoanMovieWindow {
+public class ReturnMovieWindow {
     public static void display(DbMediator dbMediator){
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
@@ -29,31 +29,31 @@ public class LoanMovieWindow {
         movieTitleField.setPromptText("Movie Title");
         GridPane.setConstraints(movieTitleField, 2, 0);
 
-        Button loanButton = new Button("Loan");
-        loanButton.setOnAction(e -> {
-            loanMovie(dbMediator,  Integer.parseInt(clientIDField.getText()), movieTitleField.getText());
+        Button returnButton = new Button("Return");
+        returnButton.setOnAction(e -> {
+            returnMovie(dbMediator,  Integer.parseInt(clientIDField.getText()), movieTitleField.getText());
             window.close();
         });
-        GridPane.setConstraints(loanButton, 0, 5);
+        GridPane.setConstraints(returnButton, 0, 5);
 
         Button exitButton = new Button("Menu");
         exitButton.setOnAction(e -> window.close());
         GridPane.setConstraints(exitButton, 2, 5);
 
-        gridPane.getChildren().addAll(clientIDField, movieTitleField, loanButton, exitButton);
+        gridPane.getChildren().addAll(clientIDField, movieTitleField, returnButton, exitButton);
 
         Scene scene = new Scene(gridPane);
         window.setScene(scene);
         window.showAndWait();
     }
 
-    private static void loanMovie(DbMediator dbm, int clientID, String movieTitle) {
+    private static void returnMovie(DbMediator dbm, int clientID, String movieTitle) {
         try {
-            Movie movie = dbm.getMovieByTitle(movieTitle);
             Client client = dbm.getClient(clientID);
-            int loanID = dbm.loanMovie(clientID, movie.getMovieID());
-            SuccessWindow.display("SUCCESS!", String.format("Loaned %s to %s %s for %s",
-                    movieTitle, client.getFirstName(), client.getLastName(), movie.getPricePerUnit()));
+            Loan loan = dbm.getLoan(clientID, movieTitle);
+            double fine = dbm.returnMovie(loan.getLoanID(), null);
+            SuccessWindow.display("SUCCESS!", String.format("Returned %s by %s %s.\n Fine: %s  ",
+                    movieTitle, client.getFirstName(), client.getLastName(), fine));
         } catch (Exception e) {
             SuccessWindow.display("FAIL!", e.getMessage());
         }
