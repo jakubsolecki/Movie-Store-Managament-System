@@ -1,7 +1,9 @@
-[![Maven badge](https://img.shields.io/badge/Maven-4.0.0-red)](https://maven.apache.org)
-[![Lombok badge](https://img.shields.io/badge/Project_Lombok-1.18.12-green)](https://mvnrepository.com/artifact/org.projectlombok/lombok)
-[![Hibernate badge](https://img.shields.io/badge/Hibernate-5.4.11-yellow)](https://mvnrepository.com/artifact/org.hibernate/hibernate-core)
-[![PostgreSql badge](https://img.shields.io/badge/PostgreSQL-42.2.12-%2346A9EE)](https://mvnrepository.com/artifact/org.postgresql/postgresql)
+[![](https://img.shields.io/badge/Maven-4.0.0-red)](https://maven.apache.org)
+[![](https://img.shields.io/badge/Project_Lombok-1.18.12-green)](https://mvnrepository.com/artifact/org.projectlombok/lombok)
+[![](https://img.shields.io/badge/Hibernate-5.4.11-yellow)](https://mvnrepository.com/artifact/org.hibernate/hibernate-core)
+[![](https://img.shields.io/badge/PostgreSQL-42.2.12-%2346A9EE)](https://mvnrepository.com/artifact/org.postgresql/postgresql)
+[![](https://img.shields.io/badge/JavaFX-14.0.1-blue)](https://openjfx.io/)
+
 
 
 # Movie Store Management System
