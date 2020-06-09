@@ -282,6 +282,33 @@ public class DbMediator {
         return allClients;
     }
 
+    public List<Client> getAllClientsByTheirName (String firstName, String lastName) throws Exception {
+        Session session = SessionFactoryDecorator.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Client> cr = cb.createQuery(Client.class);
+        Root<Client> root = cr.from(Client.class);
+        Predicate[] predicates = new Predicate[2];
+        predicates[0] = cb.like(root.get("firstname"), firstName);
+        predicates[1] = cb.like(root.get("lastname"), lastName);
+        cr.select(root).where(predicates);
+
+        List<Client> allClientsByTheirName = null;
+        try{
+            allClientsByTheirName = session.createQuery(cr).getResultList();
+            transaction.commit();
+        }
+        catch (NoResultException e) {
+            transaction.rollback();
+        }
+        finally {
+            session.close();
+        }
+
+        return allClientsByTheirName;
+    }
+
     // returns list of all movies or null if there aren't any
     public List<Movie> getAllMovies() throws Exception {
         Session session = SessionFactoryDecorator.openSession();
@@ -305,5 +332,29 @@ public class DbMediator {
         }
 
         return allMovies;
+    }
+
+    public Movie getMovieByTitle(String title) throws Exception {
+        Session session = SessionFactoryDecorator.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Movie> cr = cb.createQuery(Movie.class);
+        Root<Movie> root = cr.from(Movie.class);
+        cr.select(root).where(cb.like(root.get("title"), title));
+
+        Movie movie = null;
+        try{
+            movie = session.createQuery(cr).getSingleResult();
+            transaction.commit();
+        }
+        catch (NoResultException e) {
+            transaction.rollback();
+        }
+        finally {
+            session.close();
+        }
+
+        return movie;
     }
 }

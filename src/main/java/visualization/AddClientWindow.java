@@ -80,7 +80,7 @@ public class AddClientWindow {
                                   String zipCode) {
         try {
             int clientID = dbm.addClient(firstName, lastName, phoneNumber, email, country, city, street, zipCode);
-            SuccessWindow.display("SUCCESS!", "Added Client ");
+            SuccessWindow.display("SUCCESS!", "Added Client. ID: " + clientID);
         } catch (Exception e) {
             SuccessWindow.display("FAIL!", e.getMessage());
         }

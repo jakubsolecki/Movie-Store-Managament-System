@@ -13,6 +13,7 @@ public class SuccessWindow {
     public static void display(String answer, String message){
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
+        window.setMinWidth(200);
 
         VBox vbox = new VBox();
         vbox.setPadding(new Insets(10));

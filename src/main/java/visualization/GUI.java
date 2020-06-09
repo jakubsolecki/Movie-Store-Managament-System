@@ -39,12 +39,15 @@ public class GUI extends Application {
         GridPane.setConstraints(addClientButton, 1, 1);
 
         Button addMovieButton = new Button("Add Movie");
+        addMovieButton.setOnAction(e -> AddMovieWindow.display(dbm));
         GridPane.setConstraints(addMovieButton, 3, 1);
 
         Button addClientRemarksButton = new Button("Add Client Remarks");
+        addClientRemarksButton.setOnAction(e -> AddClientRemarksWindow.display(dbm));
         GridPane.setConstraints(addClientRemarksButton, 1, 2);
 
         Button loanMovieButton = new Button("Loan Movie");
+        loanMovieButton.setOnAction(e -> LoanMovieWindow.display(dbm));
         GridPane.setConstraints(loanMovieButton, 3, 2);
 
         Button returnMovieButton = new Button("Return Movie");
