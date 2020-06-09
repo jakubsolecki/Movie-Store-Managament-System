@@ -55,6 +55,7 @@ public class GUI extends Application {
         GridPane.setConstraints(returnMovieButton, 1, 3);
 
         Button showClientInfoButton = new Button("Show Client Info");
+        showClientInfoButton.setOnAction(e -> showClientInfoWindow.display(dbm));
         GridPane.setConstraints(showClientInfoButton, 3, 3);
 
         Button exitButton = new Button("Exit");
