@@ -13,6 +13,8 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 public class DbMediator {
     private static DbMediator instance;
     private final Pattern emailPattern;
@@ -182,7 +184,7 @@ public class DbMediator {
     }
 
     // throws exception when loan with given ID does not exist
-    public void returnMovie (int loanID, String remarks, double fine) throws Exception {
+    public double returnMovie (int loanID, String remarks) throws Exception {
         Session session = SessionFactoryDecorator.openSession();
         Transaction transaction = session.beginTransaction();
 
@@ -200,6 +202,10 @@ public class DbMediator {
             session.close();
             throw new Exception("Loan does not exist");
         }
+        double fine = 0.0;
+        //5 zl fine for 1 day delay
+        if(DAYS.between(java.time.LocalDate.now(), loan.getDueDate()) < 0)
+            fine = -5.0*(int)DAYS.between(java.time.LocalDate.now(), loan.getDueDate());
 
         Client client = loan.getClient();
         Movie movie = loan.getMovie();
@@ -226,7 +232,40 @@ public class DbMediator {
 
         transaction.commit();
         session.close();
+        return fine;
     }
+
+    public Loan getLoan(int clientID, String movieTitle) throws Exception {
+        Session session = SessionFactoryDecorator.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Loan> cr = cb.createQuery(Loan.class);
+        Root<Loan> root = cr.from(Loan.class);
+        Predicate[] predicates = new Predicate[2];
+        Client client = getClient(clientID);
+        Movie movie = getMovieByTitle(movieTitle);
+        predicates[0] = cb.equal(root.get("client"), client);
+        predicates[1] = cb.equal(root.get("movie"), movie);
+        cr.select(root).where(predicates);
+
+        Loan loan = null;
+        try {
+            loan = session.createQuery(cr).getSingleResult();
+            transaction.commit();
+        }
+        catch (NoResultException e) {
+            transaction.rollback();
+            throw new Exception("Loan does not exist");
+        }
+        finally {
+            session.close();
+        }
+
+        return loan;
+    }
+
+
 
     // return client with given ID or throws an exception if there is no such a client
     public Client getClient(int clientID) throws Exception {
@@ -279,6 +318,33 @@ public class DbMediator {
         return allClients;
     }
 
+    public List<Client> getAllClientsByTheirName (String firstName, String lastName) throws Exception {
+        Session session = SessionFactoryDecorator.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Client> cr = cb.createQuery(Client.class);
+        Root<Client> root = cr.from(Client.class);
+        Predicate[] predicates = new Predicate[2];
+        predicates[0] = cb.like(root.get("firstname"), firstName);
+        predicates[1] = cb.like(root.get("lastname"), lastName);
+        cr.select(root).where(predicates);
+
+        List<Client> allClientsByTheirName = null;
+        try{
+            allClientsByTheirName = session.createQuery(cr).getResultList();
+            transaction.commit();
+        }
+        catch (NoResultException e) {
+            transaction.rollback();
+        }
+        finally {
+            session.close();
+        }
+
+        return allClientsByTheirName;
+    }
+
     // returns list of all movies or null if there aren't any
     public List<Movie> getAllMovies() throws Exception {
         Session session = SessionFactoryDecorator.openSession();
@@ -302,5 +368,29 @@ public class DbMediator {
         }
 
         return allMovies;
+    }
+
+    public Movie getMovieByTitle(String title) throws Exception {
+        Session session = SessionFactoryDecorator.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        CriteriaBuilder cb = session.getCriteriaBuilder();
+        CriteriaQuery<Movie> cr = cb.createQuery(Movie.class);
+        Root<Movie> root = cr.from(Movie.class);
+        cr.select(root).where(cb.like(root.get("title"), title));
+
+        Movie movie = null;
+        try{
+            movie = session.createQuery(cr).getSingleResult();
+            transaction.commit();
+        }
+        catch (NoResultException e) {
+            transaction.rollback();
+        }
+        finally {
+            session.close();
+        }
+
+        return movie;
     }
 }

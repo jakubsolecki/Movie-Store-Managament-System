@@ -38,7 +38,6 @@ public class Client {
     @Embedded
     private Address address;
 
-
     private String remarks;
 
     @OneToMany(fetch = FetchType.LAZY)
